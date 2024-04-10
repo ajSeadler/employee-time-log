@@ -23,3 +23,57 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.sidebar {
+  width: 240px;
+  height: 100vh;
+  background-color: #5E6472;
+  
+}
+
+.sidebar__list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar__item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.sidebar__item:hover {
+  background-color: #f3f4f6;
+}
+
+.sidebar__icon {
+  color: #FFA69E;
+  margin-right: 10px;
+}
+
+.sidebar__text {
+  color: #fff;
+  font-size: 1rem;
+}
+
+
+.stats-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.stats-container > div {
+  flex: 1;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #FAF3DD;
+  text-align: center;
+  margin: 5px;
+}
+
+.week-hours, .month-hours, .expected-salary, .ytd-earnings, .pto {
+  background-color: #f0f0f0;
+}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Card, CardContent, CircularProgress, Typography } from "@mui/material";
 
 const ProfilePage = () => {
   const [userData, setUserData] = useState(null);
@@ -34,7 +34,7 @@ const ProfilePage = () => {
   }, []);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <CircularProgress />;
   }
 
   if (error) {
@@ -42,20 +42,38 @@ const ProfilePage = () => {
   }
 
   return (
-    <div className="profile-page container">
-      <div className="card mb-3">
-        <div className="card-body">
-          <h1 className="card-title mb-4 fade-in">Welcome, {userData?.name}!</h1>
-          {userData && (
-            <div>
-              <p className="card-text">
-                Email: {userData.email}
-              </p>
-            </div>
-          )}
+    <Card variant="outlined">
+      <CardContent>
+        <Typography variant="h5" component="h2">
+          Welcome, {userData?.name}!
+        </Typography>
+        {userData && (
+          <div>
+            <Typography variant="body1" gutterBottom>
+              Email: {userData.email}
+            </Typography>
+          </div>
+        )}
+        <div className="stats-container">
+          <div className="week-hours">
+            <h3>Weekly Hours</h3>
+          </div>
+          <div className="month-hours">
+            <h3>Monthly Hours</h3>
+          </div>
+          <div className="expected-salary">
+            <h3>Expected Salary</h3>
+          </div>
+          <div className="ytd-earnings">
+            <h3>Earnings So Far</h3>
+          </div>
+          
+          <div className="pto">
+            <h3>Paid Time Off</h3>
+          </div>
         </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 };
 
