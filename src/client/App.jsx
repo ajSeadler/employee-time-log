@@ -1,20 +1,18 @@
 // App.jsx
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import Home from './components/Home';
-import Navbar from './components/NavBar';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Login from "./components/Login";
+import ProfilePage from "./components/ProfilePage";
 
 function App() {
   return (
     <>
-    <div>
-      <Navbar />
-  
-      <Routes>
-        <Route path="/" element={<Home />} />
-        
-      </Routes>
-    </div>
+      <div>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/me" element={<ProfilePage />} />
+        </Routes>
+      </div>
     </>
   );
 }
