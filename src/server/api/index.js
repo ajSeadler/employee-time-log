@@ -47,6 +47,10 @@ apiRouter.use((req, res, next) => {
 
 const usersRouter = require("./users");
 apiRouter.use("/users", usersRouter);
+const statsRouter = require("./stats");
+apiRouter.use("/stats", statsRouter);
+const timeStampRouter = require("./timeStamp");
+apiRouter.use("/timestamps", timeStampRouter);
 
 
 

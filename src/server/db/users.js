@@ -1,11 +1,11 @@
-const db = require('./client')
+const db = require('./client');
 const bcrypt = require('bcrypt');
 const SALT_COUNT = 10;
 
-const createUser = async({ name, email, password }) => {
+const createUser = async ({ name, email, password }) => {
     const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
     try {
-        const { rows: [user ] } = await db.query(`
+        const { rows: [user] } = await db.query(`
         INSERT INTO users(name, email, password)
         VALUES($1, $2, $3)
         ON CONFLICT (email) DO NOTHING
@@ -15,23 +15,23 @@ const createUser = async({ name, email, password }) => {
     } catch (err) {
         throw err;
     }
-}
+};
 
-const getUserByEmail = async(email) => {
+const getUserByEmail = async (email) => {
     try {
-        const { rows: [ user ] } = await db.query(`
+        const { rows: [user] } = await db.query(`
         SELECT * 
         FROM users
-        WHERE email=$1;`, [ email ]);
+        WHERE email=$1;`, [email]);
 
-        if(!user) {
+        if (!user) {
             return;
         }
         return user;
     } catch (err) {
         throw err;
     }
-}
+};
 
 const getUser = async ({ email, password }) => {
     try {
@@ -58,9 +58,6 @@ const getUser = async ({ email, password }) => {
     }
 };
 
-
-
-
 const getAllUsers = async () => {
     try {
         const { rows } = await db.query('SELECT * FROM users');
@@ -68,42 +65,84 @@ const getAllUsers = async () => {
     } catch (error) {
         throw error;
     }
-}
+};
 
-
-  const getUserById = async (userId) => {
+const getUserById = async (userId) => {
     try {
-      const { rows: [user] } = await db.query( 
-        `
+        const { rows: [user] } = await db.query(
+            `
         SELECT *
         FROM users
         WHERE id = $1;
         `,
-        [userId]
-      );
-  
-      if (!user) return null;
-  
-      // Omitting password from the user object
-      const sanitizedUser = { ...user };
-      delete sanitizedUser.password;
-  
-      return sanitizedUser;
+            [userId]
+        );
+
+        if (!user) return null;
+
+        // Omitting password from the user object
+        const sanitizedUser = { ...user };
+        delete sanitizedUser.password;
+
+        return sanitizedUser;
     } catch (error) {
-      throw error;
+        throw error;
     }
-  };
-  
+};
 
-  
+const updateUserEmail = async (userId, newEmail) => {
+    try {
+        const { rows: [updatedUser] } = await db.query(`
+            UPDATE users
+            SET email = $2
+            WHERE id = $1
+            RETURNING *;
+        `, [userId, newEmail]);
 
+        return updatedUser;
+    } catch (error) {
+        throw error;
+    }
+};
 
+const updateUserName = async (userId, newName) => {
+    try {
+        const { rows: [updatedUser] } = await db.query(`
+            UPDATE users
+            SET name = $2
+            WHERE id = $1
+            RETURNING *;
+        `, [userId, newName]);
 
+        return updatedUser;
+    } catch (error) {
+        throw error;
+    }
+};
+
+const updateUserPassword = async (userId, newPassword) => {
+    const hashedPassword = await bcrypt.hash(newPassword, SALT_COUNT);
+    try {
+        const { rows: [updatedUser] } = await db.query(`
+            UPDATE users
+            SET password = $2
+            WHERE id = $1
+            RETURNING *;
+        `, [userId, hashedPassword]);
+
+        return updatedUser;
+    } catch (error) {
+        throw error;
+    }
+};
 
 module.exports = {
     createUser,
     getUser,
     getUserByEmail,
-    getAllUsers, 
+    getAllUsers,
     getUserById,
+    updateUserEmail,
+    updateUserName,
+    updateUserPassword
 };

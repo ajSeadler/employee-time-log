@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardContent, CircularProgress, Typography } from "@mui/material";
+import EmployeeStats from "./EmployeeStats";
+import EmployeeStatsChart from "./EmployeeStatsChart";
+import TimeStampChart from "./TimeStampChart";
 
 const ProfilePage = () => {
   const [userData, setUserData] = useState(null);
@@ -34,7 +37,7 @@ const ProfilePage = () => {
   }, []);
 
   if (loading) {
-    return <CircularProgress />;
+    return <CircularProgress style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} />;
   }
 
   if (error) {
@@ -42,38 +45,33 @@ const ProfilePage = () => {
   }
 
   return (
-    <Card variant="outlined">
-      <CardContent>
-        <Typography variant="h5" component="h2">
-          Welcome, {userData?.name}!
-        </Typography>
-        {userData && (
-          <div>
-            <Typography variant="body1" gutterBottom>
-              Email: {userData.email}
+    <div className="profile-container">
+      <div className="profile-content" style={{padding:'30px'}}>
+        <Card variant="outlined" style={{ backgroundColor: "#292929", margin: "0px", padding: "20px"}}>
+          <CardContent>
+            <Typography variant="h4" gutterBottom style={{color:'#fff', fontWeight:'bold'}}>
+              Welcome, <span style={{color:'#ffd166', fontWeight:'bolder'}}>{userData?.name}!</span>
             </Typography>
-          </div>
-        )}
-        <div className="stats-container">
-          <div className="week-hours">
-            <h3>Weekly Hours</h3>
-          </div>
-          <div className="month-hours">
-            <h3>Monthly Hours</h3>
-          </div>
-          <div className="expected-salary">
-            <h3>Expected Salary</h3>
-          </div>
-          <div className="ytd-earnings">
-            <h3>Earnings So Far</h3>
-          </div>
-          
-          <div className="pto">
-            <h3>Paid Time Off</h3>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
+            {/* {userData && (
+              <div>
+                <Typography variant="body1" gutterBottom style={{fontWeight:'bolder'}}>
+                  Email: {userData.email}
+                </Typography>
+              </div>
+              
+            )} */}
+            <div>
+            <Typography variant="h5" gutterBottom style={{fontWeight:'bolder', color:'#fff'}}>
+                  <span>Employee Dashboard</span>
+                </Typography>
+              </div>
+            <EmployeeStats userData={userData} />
+          </CardContent>
+          <EmployeeStatsChart userData={userData} />
+        </Card>
+      </div>
+      
+    </div>
   );
 };
 
