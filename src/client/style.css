@@ -1,3 +1,8 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+
 * {
   margin: 0;
   padding: 0;
@@ -5,34 +10,33 @@
   scroll-behavior: smooth;
 }
 
-
-
 :root {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #292929;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+/* SIDE BAR STYLING */
 .sidebar {
-  width: 240px;
-  height: 100vh;
-  background-color: #5E6472;
-  
+  width: 10vw;
+  height: 100dvh;
+  background-color: #333;
+  position: sticky;
+  border-right: 1px solid #000;
 }
 
 .sidebar__list {
   list-style-type: none;
-  padding: 0;
+  padding: 10px;
 }
 
 .sidebar__item {
@@ -42,38 +46,160 @@
   cursor: pointer;
 }
 
-.sidebar__item:hover {
-  background-color: #f3f4f6;
-}
 
 .sidebar__icon {
-  color: #FFA69E;
+  color: #fff;
   margin-right: 10px;
 }
 
 .sidebar__text {
   color: #fff;
+  font-weight: bold;
   font-size: 1rem;
 }
 
+.sidebar__item:hover {
+  background-color: #ffd166;
+  padding: 10px;
+  margin: 0px;
+  width: 104%;
+  color: #333 !important;
+  border-radius: 30px;
+  /* border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px; */
+}
+
+.sidebar__link {
+  text-decoration: none;
+  color: #fff;
+}
+
+.sidebar__link.active {
+  background-color: #fff;
+}
+
+.avatar {
+  margin-bottom: 20px; /* Adjust margin as needed */
+  display: flex;
+  justify-content: center;
+}
+
+.avatar img {
+  width: 200px !important; /* Adjust width as needed */
+  height: 200px !important; /* Adjust height as needed */
+  border-radius: 50%; /* Make the image round */
+  object-fit: contain; /* Ensure the image covers the entire avatar */
+}
+
+
+
+/* PROFILE STYLING */
+
+.profile-container {
+  margin: auto;
+  width: 91.5vw;
+  height: 100vh;
+  background-color: #292929;
+}
+
+/* STATS STYLING */
 
 .stats-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(200px, 1fr)); /* 3 columns */
+  gap: 20px;
+  width: 100%;
+}
+
+
+
+.grid-item {
+  width: 100%; /* Adjust width as needed */
+  animation: fadeIn 1s ease forwards;
+}
+
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* add this back in when click func. on stat cards twerks */
+/* .grid-item:hover {
+  scale: 1.05;
+} */
+
+.stat-card {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.icon {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.value {
+  font-weight: bolder !important;
+  font-size: 1.5rem !important;
+}
+
+/* PROGRESS BAR STYLING */
+
+.stats-container {
+  display: flex;
+  justify-content: center;
   padding: 10px;
 }
 
-.stats-container > div {
-  flex: 1;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #FAF3DD;
-  text-align: center;
-  margin: 5px;
+.stat-item {
+  width: 200px;
+  margin-bottom: 20px;
+  margin: 4%;
 }
 
-.week-hours, .month-hours, .expected-salary, .ytd-earnings, .pto {
-  background-color: #f0f0f0;
+.CircularProgressbar-path {
+  stroke: #00cc66 !important;
+}
+
+.CircularProgressbar-trail {
+  stroke: #f3f3f3;
+}
+
+/* SETTINGS STYLING */
+
+.settings-container {
+  background-color: #1a1a1a;
+  color: white;
+  padding: 20px;
+}
+
+.settings-form {
+  margin-top: 20px;
+}
+
+.button-container {
+  margin-top: 20px;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
 }
